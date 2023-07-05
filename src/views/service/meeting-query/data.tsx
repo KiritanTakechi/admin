@@ -1,5 +1,5 @@
-import { BasicColumn } from '/@/components/Table/src/types/table'
-import { FormProps } from '/@/components/Table'
+import { BasicColumn } from '@/components/Table/src/types/table'
+import { FormProps } from '@/components/Table'
 import { StatusEnum } from '@/enums/tableEnum'
 
 const statusValueMap = {
@@ -73,7 +73,7 @@ export function getMeetingFormConfig(): Partial<FormProps> {
         componentProps: ({ formModel }) => {
           return {
             placeholder: formModel?.queryMode === 'id' ? '请输入数字ID' : '请输入楼名',
-            maxlength: 32
+            maxlength: 32,
           }
         },
         dynamicRules({ model }) {
