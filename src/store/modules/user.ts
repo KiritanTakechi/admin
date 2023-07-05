@@ -6,7 +6,7 @@ import { RoleEnum } from '@/enums/roleEnum'
 import { PageEnum } from '@/enums/pageEnum'
 import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '@/enums/cacheEnum'
 import { getAuthCache, setAuthCache } from '@/utils/auth'
-import { GetUserInfoModel, LoginParams } from '@/api/sys/model/userModel'
+import { GetUserInfoModel, LoginParams, RegisterParams } from '@/api/sys/model/userModel'
 import { doLogout, getUserInfo, loginApi, registerApi } from '@/api/sys/user'
 import { useI18n } from '@/hooks/web/useI18n'
 import { useMessage } from '@/hooks/web/useMessage'
@@ -149,7 +149,7 @@ export const useUserStore = defineStore('app-user', {
       this.setToken(undefined)
       this.setSessionTimeout(false)
       this.setUserInfo(null)
-      goLogin && router.push(PageEnum.BASE_LOGIN)
+      goLogin && (await router.push(PageEnum.BASE_LOGIN))
     },
 
     /**
@@ -172,7 +172,7 @@ export const useUserStore = defineStore('app-user', {
      * @description: register
      */
     async register(
-      params: LoginParams & {
+      params: RegisterParams & {
         goHome?: boolean
         mode?: ErrorMessageMode
       }

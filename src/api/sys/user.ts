@@ -45,7 +45,7 @@ export const doLogout = () => {
 /**
  * @description: user register api
  */
-export function registerApi(params: LoginParams, mode: ErrorMessageMode = 'modal') {
+export const registerApi = (params: LoginParams, mode: ErrorMessageMode = 'modal') => {
   return defHttp.post<LoginResultModel>(
     {
       url: Api.Register,
