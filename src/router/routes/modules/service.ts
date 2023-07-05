@@ -19,7 +19,7 @@ const service: AppRouteModule = {
     {
       path: 'meeting-query',
       name: 'meetingQuery',
-      component: () => import('/@/views/service/meeting-query/index.vue'),
+      component: () => import('@/views/service/meeting-query/index.vue'),
       meta: {
         //title: t('routes.demo.setup.page'),
         title: '会议查询',
