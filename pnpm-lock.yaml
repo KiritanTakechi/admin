@@ -102,8 +102,8 @@ dependencies:
     specifier: ^2.2.4
     version: 2.2.4(vue@3.3.4)
   vue-router:
-    specifier: ^4.2.2
-    version: 4.2.2(vue@3.3.4)
+    specifier: ^4.2.3
+    version: 4.2.3(vue@3.3.4)
   vue-types:
     specifier: ^5.1.0
     version: 5.1.0(vue@3.3.4)
@@ -2454,7 +2454,7 @@ packages:
       '@jest/types': 27.5.1
       '@types/node': 18.16.19
       chalk: 4.1.2
-      collect-v8-coverage: 1.0.1
+      collect-v8-coverage: 1.0.2
       exit: 0.1.2
       glob: 7.2.3
       graceful-fs: 4.2.11
@@ -2492,7 +2492,7 @@ packages:
       '@jest/console': 27.5.1
       '@jest/types': 27.5.1
       '@types/istanbul-lib-coverage': 2.0.4
-      collect-v8-coverage: 1.0.1
+      collect-v8-coverage: 1.0.2
     dev: false
 
   /@jest/test-sequencer@27.5.1:
@@ -4350,8 +4350,8 @@ packages:
     engines: {node: '>=0.8'}
     dev: false
 
-  /collect-v8-coverage@1.0.1:
-    resolution: {integrity: sha512-iBPtljfCNcTKNAto0KEtDfZ3qzjJvqE3aTGZsbhjSBlorqpXJlaWWtPO35D+ZImoC3KWejX64o+yPGxhWSTzfg==}
+  /collect-v8-coverage@1.0.2:
+    resolution: {integrity: sha512-lHl4d5/ONEbLlJvaJNtsF/Lz+WvB07u2ycqTYbdrq7UypDXailES4valYb2eWiJFxZlVmpGekfqoxQhzyFdT4Q==}
     dev: false
 
   /collection-visit@1.0.0:
@@ -7169,7 +7169,7 @@ packages:
       '@jest/types': 27.5.1
       chalk: 4.1.2
       cjs-module-lexer: 1.2.3
-      collect-v8-coverage: 1.0.1
+      collect-v8-coverage: 1.0.2
       execa: 5.1.1
       glob: 7.2.3
       graceful-fs: 4.2.11
@@ -10615,8 +10615,8 @@ packages:
       vue: 3.3.4
     dev: false
 
-  /vue-router@4.2.2(vue@3.3.4):
-    resolution: {integrity: sha512-cChBPPmAflgBGmy3tBsjeoe3f3VOSG6naKyY5pjtrqLGbNEXdzCigFUHgBvp9e3ysAtFtEx7OLqcSDh/1Cq2TQ==}
+  /vue-router@4.2.3(vue@3.3.4):
+    resolution: {integrity: sha512-ynQ/edCZNUC/9koONOSgxGJbEBXZ1nUA0lKI3xTiOd3Ywe4QRCf2q8pGCG1v5ovdzPggoq3M09FxNCZTM9pZfw==}
     peerDependencies:
       vue: ^3.2.0
     dependencies:

@@ -11,7 +11,7 @@ const service: AppRouteModule = {
   meta: {
     orderNo: 80000,
     hideChildrenInMenu: true,
-    icon: 'whh:paintroll',
+    icon: 'solar:slider-vertical-minimalistic-linear',
     //title: t('routes.demo.setup.page'),
     title: '服务'
   },
