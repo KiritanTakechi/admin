@@ -1,5 +1,5 @@
-export const GITHUB_URL = 'https://gitee.com/xingyu4j/vue-vben-admin'
+export const GITHUB_URL = 'https://github.com/KiritanTakechi/admin'
 
-export const DOC_URL = 'http://vben.x-surge.com/'
+export const DOC_URL = 'https://meeting.touhou.asia/'
 
-export const SITE_URL = 'http://vben.x-surge.com/'
+export const SITE_URL = 'https://meeting.touhou.asia/'
