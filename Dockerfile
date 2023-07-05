@@ -10,7 +10,7 @@ RUN apt-get update && \
     npm install -g pnpm && \
     git clone https://github.com/KiritanTakechi/admin.git . && \
     pnpm i && \
-    pnpm run build && \
+    NODE_OPTIONS="--max-old-space-size=4096" pnpm run build && \
     pnpm store prune && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
