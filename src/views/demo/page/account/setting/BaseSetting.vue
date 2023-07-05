@@ -30,7 +30,7 @@ import { CropperAvatar } from '@/components/Cropper'
 
 import { useMessage } from '@/hooks/web/useMessage'
 
-import headerImg from '@/assets/images/header.jpg'
+import headerImg from '@/assets/images/header.png'
 import { accountInfoApi } from '@/api/demo/account'
 import { baseSetschemas } from './data'
 import { useUserStore } from '@/store/modules/user'

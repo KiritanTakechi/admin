@@ -27,7 +27,7 @@ import { BasicForm, useForm } from '@/components/Form'
 
 import { useUserStore } from '@/store/modules/user'
 import { useLockStore } from '@/store/modules/lock'
-import headerImg from '@/assets/images/header.jpg'
+import headerImg from '@/assets/images/header.png'
 const { t } = useI18n()
 const { prefixCls } = useDesign('header-lock-modal')
 const userStore = useUserStore()
