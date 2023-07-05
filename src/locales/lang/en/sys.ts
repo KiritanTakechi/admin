@@ -85,6 +85,8 @@ export default {
     // notify
     loginSuccessTitle: 'Login successful',
     loginSuccessDesc: 'Welcome back',
+    registerSuccessTitle: 'Register successful',
+    registerSuccessDesc: 'Welcome',
 
     // placeholder
     accountPlaceholder: 'Please input username',

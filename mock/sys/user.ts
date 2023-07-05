@@ -110,6 +110,26 @@ export default [
     }
   },
   {
+    url: '/api/register',
+    timeout: 200,
+    method: 'post',
+    response: ({ body }) => {
+      const { username } = body
+      const checkUser = createFakeUserList().find((item) => item.username === username)
+      if (checkUser) {
+        return resultError('The username was existed!')
+      }
+      return resultSuccess({
+        roles: 'user',
+        userId: '100',
+        username: username,
+        token: 'fakeToken',
+        realName: '',
+        desc: ''
+      })
+    }
+  },
+  {
     url: '/api/testRetry',
     statusCode: 405,
     method: 'get',

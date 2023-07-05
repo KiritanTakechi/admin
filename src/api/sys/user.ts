@@ -8,6 +8,7 @@ enum Api {
   Logout = '/logout',
   GetUserInfo = '/getUserInfo',
   GetPermCode = '/getPermCode',
+  Register = '/register',
   TestRetry = '/testRetry'
 }
 
@@ -39,6 +40,21 @@ export const getPermCode = () => {
 
 export const doLogout = () => {
   return defHttp.get({ url: Api.Logout })
+}
+
+/**
+ * @description: user register api
+ */
+export function registerApi(params: LoginParams, mode: ErrorMessageMode = 'modal') {
+  return defHttp.post<LoginResultModel>(
+    {
+      url: Api.Register,
+      params
+    },
+    {
+      errorMessageMode: mode
+    }
+  )
 }
 
 export const testRetry = () => {
