@@ -9,8 +9,9 @@ RUN apt-get update && \
     locale-gen zh_CN.UTF-8 && \
     npm install -g pnpm && \
     git clone https://github.com/KiritanTakechi/admin.git . && \
+    node --max-old-space-size=4096 && \
     pnpm i && \
-    NODE_OPTIONS="--max-old-space-size=4096" pnpm run build && \
+    pnpm run build && \
     pnpm store prune && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
