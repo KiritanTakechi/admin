@@ -30,6 +30,8 @@
 import { BasicTable, useTable, BasicColumn, TableAction } from '@/components/Table'
 
 import { demoListApi } from '@/api/demo/table'
+import { getMeetingColumns } from '@/views/service/meeting-query/data';
+import { meetingListApi } from '@/api/service/meetingTable';
 const columns: BasicColumn[] = [
   {
     title: 'ID',
@@ -64,8 +66,8 @@ const columns: BasicColumn[] = [
 ]
 const [registerTable] = useTable({
   title: 'TableAction组件及固定列示例',
-  api: demoListApi,
-  columns: columns,
+  api: meetingListApi,
+  columns: getMeetingColumns(),
   rowSelection: { type: 'radio' },
   bordered: true,
   actionColumn: {

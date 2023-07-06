@@ -10,7 +10,6 @@ const service: AppRouteModule = {
   redirect: '/service/meeting-query',
   meta: {
     orderNo: 80000,
-    hideChildrenInMenu: true,
     icon: 'solar:slider-vertical-minimalistic-linear',
     //title: t('routes.demo.setup.page'),
     title: '服务'
@@ -22,9 +21,18 @@ const service: AppRouteModule = {
       component: () => import('@/views/service/meeting-query/index.vue'),
       meta: {
         //title: t('routes.demo.setup.page'),
-        title: '会议查询',
-        icon: 'whh:paintroll',
-        hideMenu: true
+        title: '会议查询'
+        //hideMenu: true
+      }
+    },
+    {
+      path: 'meeting-manage',
+      name: 'meetingManage',
+      component: () => import('@/views/service/meeting-manage/index.vue'),
+      meta: {
+        //title: t('routes.demo.setup.page'),
+        title: '会议管理'
+        //hideMenu: true
       }
     }
   ]
