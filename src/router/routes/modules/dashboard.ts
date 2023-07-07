@@ -22,7 +22,8 @@ const dashboard: AppRouteModule = {
         // affix: true,
         title: t('routes.dashboard.analysis')
       }
-    },
+    }
+    /* ,
     {
       path: 'workbench',
       name: 'Workbench',
@@ -30,7 +31,7 @@ const dashboard: AppRouteModule = {
       meta: {
         title: t('routes.dashboard.workbench')
       }
-    }
+    } */
   ]
 }
 
