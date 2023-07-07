@@ -4,7 +4,7 @@ import { StatusEnum } from '@/enums/tableEnum'
 
 const statusValueMap = new Map([
   [StatusEnum.APPROVED, '同意'],
-  [StatusEnum.REVIEWING, '审核中'],
+  [StatusEnum.REVIEWING, '占用'],
   [StatusEnum.FREE, '空闲']
 ])
 

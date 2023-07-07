@@ -2,7 +2,7 @@ import { defHttp } from '@/utils/http/axios'
 import { CreateMeetingParams, CreateMeetingListGetResultModel } from './model/createMeetingModel'
 
 enum Api {
-  MEETING_LIST = '/api/meetingroomMange/addRoom'
+  MEETING_LIST = '/meetingroomMange/addRoom'
 }
 
 /**

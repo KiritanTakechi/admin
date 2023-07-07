@@ -30,7 +30,7 @@
                 auth: ['user', 'test']
               },
               {
-                label: '已预约',
+                label: '无法预约',
                 icon: 'ic:baseline-arrow-downward',
                 color: 'warning',
                 //onClick: handleRevoke.bind(null, record),

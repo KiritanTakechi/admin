@@ -2,7 +2,7 @@ import { defHttp } from '@/utils/http/axios'
 import { ReserveMeetingParams, ReserveMeetingListGetResultModel } from './model/reserveMeetingModel'
 
 enum Api {
-  RESERVE_MEETING = '/api/meetingroomMange/reserveRoom'
+  RESERVE_MEETING = '/meetingroomMange/reserveRoom'
 }
 
 /**

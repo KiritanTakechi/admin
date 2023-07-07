@@ -2,7 +2,7 @@ import { defHttp } from '@/utils/http/axios'
 import { DeleteMeetingParams, DeleteMeetingListGetResultModel } from './model/deleteMeetingModel'
 
 enum Api {
-  DELETE_MEETING = '/api/meetingroomMange/delete'
+  DELETE_MEETING = '/meetingroomMange/deleteRoom'
 }
 
 /**

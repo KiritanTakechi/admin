@@ -1,9 +1,6 @@
 <template>
   <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
     <BasicTable @register="registerReserveTable">
-      <template #toolbar>
-        <a-button v-auth="['super', 'admin']" type="primary" @click="handleCreateMeeting" :loading="createLoading">添加会议室</a-button>
-      </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
           <TableAction
@@ -11,9 +8,9 @@
             :actions="[
               {
                 label: '取消预约',
-                icon: 'ic:baseline-edit',
-                color: 'success',
-                //onClick: handleEdit.bind(null, record),
+                icon: 'ic:outline-delete-outline',
+                color: 'error',
+                onClick: handleReserveMeeting.bind(null, record),
                 ifShow: true,
                 auth: ['user', 'test']
               }
@@ -22,24 +19,22 @@
         </template>
       </template>
     </BasicTable>
-    <!-- <MeetingManageModal @register="registerModal" @success="handleSuccess" /> -->
+    <MeetingReserveModal @register="registerModal" @success="handleSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts" setup name="meetingManage">
-import { ref } from 'vue'
 import { BasicTable, useTable, TableAction } from '@/components/Table'
 import { getMeetingActionColumns, getMeetingColumns } from './meeting.data'
 import { PageWrapper } from '@/components/Page'
 
 import { useModal } from '@/components/Modal'
-//import MeetingManageModal from './MeetingManageModal.vue'
-
-const createLoading = ref(false)
+import { reserveListApi } from '@/api/service/reserveTable'
+import MeetingReserveModal from './MeetingReserveModal.vue'
 
 const [registerModal, { openModal }] = useModal()
 const [registerReserveTable, { getForm, getDataSource, reload, updateTableDataRecord }] = useTable({
   title: '预约会议室列表',
-  //api: meetingListApi,
+  api: reserveListApi,
   columns: getMeetingColumns(),
   /* showTableSetting: true,
   tableSetting: { fullScreen: true }, */
@@ -48,10 +43,9 @@ const [registerReserveTable, { getForm, getDataSource, reload, updateTableDataRe
   actionColumn: getMeetingActionColumns()
 })
 
-const handleCreateMeeting = () => {
+const handleReserveMeeting = (record: Recordable) => {
   openModal(true, {
-    isUpdate: false,
-    isDelete: false
+    reserveId: record.reserveId
   })
 }
 

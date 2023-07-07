@@ -3,7 +3,7 @@ import { FormProps, FormSchema } from '@/components/Table'
 import { StatusEnum } from '@/enums/tableEnum'
 
 const statusValueMap = new Map([
-  [StatusEnum.APPROVED, '占用'],
+  [StatusEnum.APPROVED, '同意'],
   [StatusEnum.REVIEWING, '占用'],
   [StatusEnum.FREE, '空闲']
 ])

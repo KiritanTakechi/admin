@@ -5,7 +5,7 @@ import { BasicPageParams, BasicFetchResult } from '@/api/model/baseModel'
 export type RevokeMeetingParams = BasicPageParams
 
 export interface RevokeMeetingListItem {
-  roomId: number
+  reserveId: number
 }
 
 /**
