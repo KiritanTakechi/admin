@@ -32,7 +32,7 @@ import { reserveListApi } from '@/api/service/reserveTable'
 import MeetingReserveModal from './MeetingReserveModal.vue'
 
 const [registerModal, { openModal }] = useModal()
-const [registerReserveTable, { getForm, getDataSource, reload, updateTableDataRecord }] = useTable({
+const [registerReserveTable, { reload, updateTableDataRecord }] = useTable({
   title: '预约会议室列表',
   api: reserveListApi,
   columns: getMeetingColumns(),

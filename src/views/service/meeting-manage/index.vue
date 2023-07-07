@@ -47,7 +47,7 @@ import MeetingManageModal from './MeetingManageModal.vue'
 const createLoading = ref(false)
 
 const [registerModal, { openModal }] = useModal()
-const [registerManageTable, { getForm, getDataSource, reload, updateTableDataRecord }] = useTable({
+const [registerManageTable, { reload, updateTableDataRecord }] = useTable({
   title: '会议室预约列表',
   api: meetingListApi,
   columns: getMeetingColumns(),
@@ -88,6 +88,7 @@ function handleEdit(record: Recordable) {
 
 function handleDelete(record: Recordable) {
   openModal(true, {
+    record,
     isUpdate: false,
     isDelete: true
   })

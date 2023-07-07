@@ -4,14 +4,11 @@
   </BasicModal>
 </template>
 <script lang="ts" setup name="MeetingReserveModal">
-import { ref, computed, unref } from 'vue'
+import { ref, computed } from 'vue'
 import { BasicModal, useModalInner } from '@/components/Modal'
-import { BasicForm, useForm } from '@/components/Form'
-import { meetingFormSchema } from './meeting.data'
 import { useI18n } from '@/hooks/web/useI18n'
 import { useMessage } from '@/hooks/web/useMessage'
 import { useDesign } from '@/hooks/web/useDesign'
-import { reserveMeetingApi } from '@/api/service/reserveMeeting'
 import { revokeMeetingApi } from '@/api/service/revokeMeeting'
 
 const emit = defineEmits(['success', 'register'])
@@ -34,7 +31,7 @@ const getTitle = computed(() => '撤销会议室')
 async function handleSubmit() {
   try {
     setModalProps({ confirmLoading: true })
-    //api
+    // @ts-ignore
     await revokeMeetingApi({ reserveId: reserveId.value })
     closeModal()
     emit('success', { values: { id: reserveId.value } })

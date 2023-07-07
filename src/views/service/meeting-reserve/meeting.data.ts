@@ -1,16 +1,5 @@
 import { BasicColumn } from '@/components/Table/src/types/table'
-import { FormProps, FormSchema } from '@/components/Table'
-import { StatusEnum } from '@/enums/tableEnum'
-
-const statusValueMap = new Map([
-  [StatusEnum.APPROVED, '同意'],
-  [StatusEnum.REVIEWING, '占用'],
-  [StatusEnum.FREE, '空闲']
-])
-
-function getStatusValue(status) {
-  return statusValueMap.get(status) || '未知'
-}
+import { FormSchema } from '@/components/Table'
 
 export function getMeetingColumns(): BasicColumn[] {
   return [
@@ -42,11 +31,6 @@ export function getMeetingColumns(): BasicColumn[] {
     {
       title: '会议主题',
       dataIndex: 'meetingTopic'
-    },
-    {
-      title: '状态',
-      dataIndex: 'status',
-      customRender: ({ text }) => getStatusValue(text)
     }
   ]
 }

@@ -44,10 +44,10 @@ const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data
   setModalProps({ confirmLoading: false })
   isUpdate.value = data?.isUpdate
   isDelete.value = data?.isDelete
+  rowId.value = data.record.id
   if (!unref(isUpdate) && !unref(isDelete)) {
     resetFields()
   } else if (unref(isUpdate)) {
-    rowId.value = data.record.id
     setFieldsValue({
       ...data.record
     })
@@ -57,7 +57,7 @@ const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data
   updateSchema([])
 })
 
-const getTitle = computed(() => (!unref(isUpdate) ? '新增会议室' : '编辑会议室'))
+const getTitle = computed(() => (unref(isUpdate) ? '编辑会议室' : unref(isDelete) ? '删除会议室' : '新增会议室'))
 
 async function handleSubmit() {
   const values = await validate()
@@ -68,6 +68,7 @@ async function handleSubmit() {
     if (unref(isUpdate)) {
       await updateMeetingApi({ ...values, oldId: rowId.value })
     } else if (unref(isDelete)) {
+      // @ts-ignore
       await deleteMeetingApi({ id: rowId.value })
     } else {
       await createMeetingApi(values)

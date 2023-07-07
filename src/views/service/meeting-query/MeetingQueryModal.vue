@@ -28,7 +28,7 @@ const { t } = useI18n()
 const { createErrorModal } = useMessage()
 const { prefixCls } = useDesign('createMeeting')
 
-const [registerForm, { setFieldsValue, updateSchema, resetFields, validate }] = useForm({
+const [registerForm, { updateSchema, resetFields, validate }] = useForm({
   labelWidth: 100,
   baseColProps: { span: 24 },
   schemas: meetingFormSchema(),
@@ -69,6 +69,7 @@ async function handleSubmit() {
     setModalProps({ confirmLoading: true })
     //api
     if (unref(isRevoke)) {
+      // @ts-ignore
       await revokeMeetingApi({ roomId: roomId.value })
     } else {
       await reserveMeetingApi({ ...values, roomId: roomId.value })
