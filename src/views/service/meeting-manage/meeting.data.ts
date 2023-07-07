@@ -123,7 +123,7 @@ export function meetingFormSchema(): FormSchema[] {
     {
       field: 'id',
       label: 'ID',
-      component: 'Input',
+      component: 'InputNumber',
       componentProps: () => {
         return {
           placeholder: '请输入（无输入则自增）',
@@ -155,12 +155,13 @@ export function meetingFormSchema(): FormSchema[] {
       field: 'buildName',
       label: '楼名',
       component: 'Input',
+      required: true,
       componentProps: () => {
         return {
           maxlength: 32
         }
-      },
-      dynamicRules() {
+      }
+      /* dynamicRules() {
         return [
           {
             required: true,
@@ -173,12 +174,12 @@ export function meetingFormSchema(): FormSchema[] {
             trigger: 'change'
           }
         ]
-      }
+      } */
     },
     {
       field: 'floor',
       label: '楼层',
-      component: 'Input',
+      component: 'InputNumber',
       required: true,
       componentProps: () => {
         return {
@@ -206,7 +207,7 @@ export function meetingFormSchema(): FormSchema[] {
     {
       field: 'area',
       label: '面积',
-      component: 'Input',
+      component: 'InputNumber',
       required: true,
       componentProps: () => {
         return {
@@ -234,7 +235,7 @@ export function meetingFormSchema(): FormSchema[] {
     {
       field: 'capacity',
       label: '座位数',
-      component: 'Input',
+      component: 'InputNumber',
       required: true,
       componentProps: () => {
         return {

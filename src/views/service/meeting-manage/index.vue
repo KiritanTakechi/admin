@@ -10,6 +10,14 @@
             stopButtonPropagation
             :actions="[
               {
+                label: '编辑',
+                icon: 'ic:baseline-edit',
+                color: 'success',
+                onClick: handleEdit.bind(null, record),
+                ifShow: true,
+                auth: ['super', 'admin']
+              },
+              {
                 label: '删除',
                 icon: 'ic:outline-delete-outline',
                 color: 'error',
@@ -54,7 +62,8 @@ const [registerManageTable, { getForm, getDataSource, reload, updateTableDataRec
 
 const handleCreateMeeting = () => {
   openModal(true, {
-    isUpdate: false
+    isUpdate: false,
+    isDelete: false
   })
 }
 
@@ -69,7 +78,18 @@ function handleSuccess({ isUpdate, values }) {
   }
 }
 
+function handleEdit(record: Recordable) {
+  openModal(true, {
+    record,
+    isUpdate: true,
+    isDelete: false
+  })
+}
+
 function handleDelete(record: Recordable) {
-  console.log('点击了删除', record)
+  openModal(true, {
+    isUpdate: false,
+    isDelete: true
+  })
 }
 </script>

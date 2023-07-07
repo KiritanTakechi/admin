@@ -121,18 +121,6 @@ export function getMeetingFormConfig(): Partial<FormProps> {
 
 export function meetingFormSchema(): FormSchema[] {
   return [
-    /* {
-      field: 'startTime',
-      label: '开始时间',
-      component: 'DatePicker',
-      required: true
-    },
-    {
-      field: 'endTime',
-      label: '结束时间',
-      component: 'DatePicker',
-      required: true
-    }, */
     {
       field: '[startTime, endTime]',
       label: '会议时间',

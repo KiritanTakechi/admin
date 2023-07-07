@@ -1,6 +1,11 @@
 <template>
   <BasicModal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
-    <BasicForm @register="registerForm" style="height: 40svh" />
+    <template v-if="!isDelete">
+      <BasicForm @register="registerForm" style="height: 40svh" />
+    </template>
+    <template v-else>
+      {{ content }}
+    </template>
   </BasicModal>
 </template>
 <script lang="ts" setup name="MeetingManageModal">
@@ -12,10 +17,14 @@ import { useI18n } from '@/hooks/web/useI18n'
 import { useMessage } from '@/hooks/web/useMessage'
 import { useDesign } from '@/hooks/web/useDesign'
 import { createMeetingApi } from '@/api/service/createMeeting'
+import { updateMeetingApi } from '@/api/service/updateMeeting'
+import { deleteMeetingApi } from '@/api/service/deleteMeeting'
 
 const emit = defineEmits(['success', 'register'])
-const isUpdate = ref(true)
-const rowId = ref('')
+const isUpdate = ref(false)
+const isDelete = ref(false)
+const rowId = ref(0)
+const content = ref('')
 
 const { t } = useI18n()
 const { createErrorModal } = useMessage()
@@ -32,15 +41,18 @@ const [registerForm, { setFieldsValue, updateSchema, resetFields, validate }] = 
 })
 
 const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data) => {
-  resetFields()
   setModalProps({ confirmLoading: false })
-  isUpdate.value = !!data?.isUpdate
-
-  if (unref(isUpdate)) {
+  isUpdate.value = data?.isUpdate
+  isDelete.value = data?.isDelete
+  if (!unref(isUpdate) && !unref(isDelete)) {
+    resetFields()
+  } else if (unref(isUpdate)) {
     rowId.value = data.record.id
     setFieldsValue({
       ...data.record
     })
+  } else if (unref(isDelete)) {
+    content.value = '确定删除吗？'
   }
   updateSchema([])
 })
@@ -49,11 +61,17 @@ const getTitle = computed(() => (!unref(isUpdate) ? '新增会议室' : '编辑�
 
 async function handleSubmit() {
   const values = await validate()
-  if (!values) return
+  if (!values && !unref(isDelete)) return
   try {
     setModalProps({ confirmLoading: true })
     //api
-    await createMeetingApi(values)
+    if (unref(isUpdate)) {
+      await updateMeetingApi({ ...values, oldId: rowId.value })
+    } else if (unref(isDelete)) {
+      await deleteMeetingApi({ id: rowId.value })
+    } else {
+      await createMeetingApi(values)
+    }
     closeModal()
     emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } })
   } catch (error) {

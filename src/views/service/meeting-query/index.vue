@@ -14,7 +14,7 @@
         </Alert>
       </template>
       <template #toolbar>
-        <a-button type="primary" @click="getFormValues">获取表单数据</a-button>
+        <!-- <a-button type="primary" @click="getFormValues">获取表单数据</a-button> -->
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
