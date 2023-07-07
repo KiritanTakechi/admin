@@ -30,8 +30,8 @@
 import { BasicTable, useTable, BasicColumn, TableAction } from '@/components/Table'
 
 import { demoListApi } from '@/api/demo/table'
-import { getMeetingColumns } from '@/views/service/meeting-query/data';
-import { meetingListApi } from '@/api/service/meetingTable';
+import { getMeetingColumns } from '@/views/service/meeting-query/meeting.data'
+import { meetingListApi } from '@/api/service/meetingTable'
 const columns: BasicColumn[] = [
   {
     title: 'ID',

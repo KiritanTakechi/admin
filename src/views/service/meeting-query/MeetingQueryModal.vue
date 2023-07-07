@@ -1,6 +1,11 @@
 <template>
   <BasicModal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
-    <BasicForm @register="registerForm" style="height: 40svh" />
+    <template v-if="!isRevoke">
+      <BasicForm @register="registerForm" style="height: 40svh" />
+    </template>
+    <template v-else>
+      {{ content }}
+    </template>
   </BasicModal>
 </template>
 <script lang="ts" setup name="MeetingQueryModal">
@@ -12,11 +17,12 @@ import { useI18n } from '@/hooks/web/useI18n'
 import { useMessage } from '@/hooks/web/useMessage'
 import { useDesign } from '@/hooks/web/useDesign'
 import { reserveMeetingApi } from '@/api/service/reserveMeeting'
+import { revokeMeetingApi } from '@/api/service/revokeMeeting'
 
 const emit = defineEmits(['success', 'register'])
-const isUpdate = ref(true)
+const isRevoke = ref(false)
 const roomId = ref(0)
-const rowId = ref('')
+const content = ref('')
 
 const { t } = useI18n()
 const { createErrorModal } = useMessage()
@@ -33,38 +39,42 @@ const [registerForm, { setFieldsValue, updateSchema, resetFields, validate }] = 
 })
 
 const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data) => {
-  resetFields()
-  setModalProps({ confirmLoading: false })
-  isUpdate.value = !!data?.isUpdate
+  isRevoke.value = !!data?.isRevoke
   roomId.value = data?.roomId
 
-  if (unref(isUpdate)) {
-    rowId.value = data.record.id
-    setFieldsValue({
-      ...data.record
-    })
+  if (unref(isRevoke)) {
+    content.value = '确定撤销吗？'
+  } else {
+    resetFields()
+    updateSchema([])
   }
-  updateSchema([])
+  setModalProps({ confirmLoading: false })
 })
 
-const getTitle = computed(() => (!unref(isUpdate) ? '预约会议室' : '撤销会议室'))
+const getTitle = computed(() => (!unref(isRevoke) ? '预约会议室' : '撤销会议室'))
 
 async function handleSubmit() {
-  const data = await validate()
-  let { ['[startTime, endTime]']: timeRange, ...rest } = data
-  let [proxyStartTime, proxyEndTime] = timeRange || []
-  let startTime = proxyStartTime.$d
-  let endTime = proxyEndTime.$d
-  let values = { ...rest, startTime, endTime }
-  values.roomId = roomId.value
-  //console.log(values)
-  if (!values) return
+  let values
+  if (unref(isRevoke)) {
+  } else {
+    const data = await validate()
+    let { ['[startTime, endTime]']: timeRange, ...rest } = data
+    let [proxyStartTime, proxyEndTime] = timeRange || []
+    let startTime = proxyStartTime.$d
+    let endTime = proxyEndTime.$d
+    values = { ...rest, startTime, endTime }
+    if (!values) return
+  }
   try {
     setModalProps({ confirmLoading: true })
     //api
-    await reserveMeetingApi(values)
+    if (unref(isRevoke)) {
+      await revokeMeetingApi({ roomId: roomId.value })
+    } else {
+      await reserveMeetingApi({ ...values, roomId: roomId.value })
+    }
     closeModal()
-    emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } })
+    emit('success', { isRevoke: unref(isRevoke), values: { ...values, id: roomId.value } })
   } catch (error) {
     createErrorModal({
       title: t('sys.api.errorTip'),

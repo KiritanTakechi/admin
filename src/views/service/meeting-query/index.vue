@@ -88,13 +88,16 @@ function getFormValues() {
 function handleReserve(record: Recordable) {
   //console.log(record.id)
   openModal(true, {
-    isUpdate: false,
+    isRevoke: false,
     roomId: record.id
   })
 }
 
 function handleRevoke(record: Recordable) {
-  console.log(record)
+  openModal(true, {
+    isRevoke: true,
+    roomId: record.id
+  })
 }
 
 function handleSuccess({ isUpdate, values }) {

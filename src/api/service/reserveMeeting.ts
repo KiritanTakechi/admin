@@ -2,7 +2,7 @@ import { defHttp } from '@/utils/http/axios'
 import { ReserveMeetingParams, ReserveMeetingListGetResultModel } from './model/reserveMeetingModel'
 
 enum Api {
-  MEETING_LIST = '/api/meetingroomMange/reserve'
+  RESERVE_MEETING = '/api/meetingroomMange/reserve'
 }
 
 /**
@@ -11,7 +11,7 @@ enum Api {
 
 export const reserveMeetingApi = (params: ReserveMeetingParams) => {
   return defHttp.post<ReserveMeetingListGetResultModel>({
-    url: Api.MEETING_LIST,
+    url: Api.RESERVE_MEETING,
     params,
     headers: {
       // @ts-ignore
