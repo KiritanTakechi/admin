@@ -27,15 +27,15 @@
                 color: 'success',
                 onClick: handleReserve.bind(null, record),
                 ifShow: record.status === StatusEnum.FREE,
-                auth: ['super', 'admin', 'user']
+                auth: ['user', 'test']
               },
               {
-                label: '撤销',
-                icon: 'ic:baseline-arrow-back',
+                label: '已预约',
+                icon: 'ic:baseline-arrow-downward',
                 color: 'warning',
-                onClick: handleRevoke.bind(null, record),
+                //onClick: handleRevoke.bind(null, record),
                 ifShow: record.status !== StatusEnum.FREE,
-                auth: ['super', 'admin', 'user']
+                auth: ['user', 'test']
               }
             ]"
           />

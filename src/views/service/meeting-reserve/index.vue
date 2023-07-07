@@ -1,6 +1,6 @@
 <template>
   <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
-    <BasicTable @register="registerManageTable">
+    <BasicTable @register="registerReserveTable">
       <template #toolbar>
         <a-button v-auth="['super', 'admin']" type="primary" @click="handleCreateMeeting" :loading="createLoading">添加会议室</a-button>
       </template>
@@ -10,49 +10,37 @@
             stopButtonPropagation
             :actions="[
               {
-                label: '编辑',
+                label: '取消预约',
                 icon: 'ic:baseline-edit',
                 color: 'success',
-                onClick: handleEdit.bind(null, record),
+                //onClick: handleEdit.bind(null, record),
                 ifShow: true,
-                auth: ['super', 'admin', 'test']
-              },
-              {
-                label: '删除',
-                icon: 'ic:outline-delete-outline',
-                color: 'error',
-                onClick: handleDelete.bind(null, record),
-                ifShow: true,
-                auth: ['super', 'admin', 'test']
+                auth: ['user', 'test']
               }
             ]"
           />
         </template>
       </template>
     </BasicTable>
-    <MeetingManageModal @register="registerModal" @success="handleSuccess" />
+    <!-- <MeetingManageModal @register="registerModal" @success="handleSuccess" /> -->
   </PageWrapper>
 </template>
 <script lang="ts" setup name="meetingManage">
 import { ref } from 'vue'
 import { BasicTable, useTable, TableAction } from '@/components/Table'
-import { getMeetingActionColumns, getMeetingColumns, getMeetingFormConfig } from './meeting.data'
+import { getMeetingActionColumns, getMeetingColumns } from './meeting.data'
 import { PageWrapper } from '@/components/Page'
 
-import { meetingListApi } from '@/api/service/meetingTable'
-
 import { useModal } from '@/components/Modal'
-import MeetingManageModal from './MeetingManageModal.vue'
+//import MeetingManageModal from './MeetingManageModal.vue'
 
 const createLoading = ref(false)
 
 const [registerModal, { openModal }] = useModal()
-const [registerManageTable, { getForm, getDataSource, reload, updateTableDataRecord }] = useTable({
-  title: '会议室预约列表',
-  api: meetingListApi,
+const [registerReserveTable, { getForm, getDataSource, reload, updateTableDataRecord }] = useTable({
+  title: '预约会议室列表',
+  //api: meetingListApi,
   columns: getMeetingColumns(),
-  useSearchForm: true,
-  formConfig: getMeetingFormConfig(),
   /* showTableSetting: true,
   tableSetting: { fullScreen: true }, */
   showIndexColumn: false,
@@ -76,20 +64,5 @@ function handleSuccess({ isUpdate, values }) {
   } else {
     reload()
   }
-}
-
-function handleEdit(record: Recordable) {
-  openModal(true, {
-    record,
-    isUpdate: true,
-    isDelete: false
-  })
-}
-
-function handleDelete(record: Recordable) {
-  openModal(true, {
-    isUpdate: false,
-    isDelete: true
-  })
 }
 </script>

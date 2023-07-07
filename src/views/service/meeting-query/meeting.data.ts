@@ -23,7 +23,6 @@ export function getMeetingColumns(): BasicColumn[] {
     {
       title: '楼名',
       dataIndex: 'buildName',
-      fixed: 'left',
       width: 160
     },
     {
