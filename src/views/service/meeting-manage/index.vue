@@ -1,90 +1,55 @@
 <template>
-  <BasicTable @register="registerTable">
-    <template #form-custom> custom-slot</template>
-    <template #headerTop>
-      <Alert type="info" show-icon>
-        <template #message>
-          <template v-if="nonFreeCount > 0">
-            <span>已预定{{ nonFreeCount }}个会议室</span>
-          </template>
-          <template v-else>
-            <span>未预定任何会议室</span>
-          </template>
-        </template>
-      </Alert>
-    </template>
-    <template #toolbar>
-      <a-button v-auth="['super', 'admin']" type="primary" @click="handleCreateMeeting" :loading="addLoading">添加会议室</a-button>
-      <a-button type="primary" @click="getFormValues">获取表单数据</a-button>
-    </template>
-    <template #bodyCell="{ column, record }">
-      <template v-if="column.key === 'action'">
-        <TableAction
-          stopButtonPropagation
-          :actions="[
-            {
-              label: '预约',
-              icon: 'ic:baseline-arrow-upward',
-              color: 'success',
-              onClick: handleEdit.bind(null, record),
-              ifShow: record.status === StatusEnum.FREE,
-              auth: ['super', 'admin', 'user']
-            },
-            {
-              label: '撤销',
-              icon: 'ic:baseline-arrow-back',
-              color: 'warning',
-              onClick: handleEdit.bind(null, record),
-              ifShow: record.status !== StatusEnum.FREE,
-              auth: ['super', 'admin', 'user']
-            },
-            {
-              label: '删除',
-              icon: 'ic:outline-delete-outline',
-              color: 'error',
-              onClick: handleDelete.bind(null, record),
-              ifShow: true,
-              auth: ['super', 'admin']
-            }
-          ]"
-        />
+  <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
+    <BasicTable @register="registerManageTable">
+      <template #toolbar>
+        <a-button v-auth="['super', 'admin']" type="primary" @click="handleCreateMeeting" :loading="createLoading">添加会议室</a-button>
       </template>
-    </template>
-  </BasicTable>
-  <MeetingModal @register="registerModal" @success="handleSuccess" />
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.key === 'action'">
+          <TableAction
+            stopButtonPropagation
+            :actions="[
+              {
+                label: '删除',
+                icon: 'ic:outline-delete-outline',
+                color: 'error',
+                onClick: handleDelete.bind(null, record),
+                ifShow: true,
+                auth: ['super', 'admin']
+              }
+            ]"
+          />
+        </template>
+      </template>
+    </BasicTable>
+    <MeetingManageModal @register="registerModal" @success="handleSuccess" />
+  </PageWrapper>
 </template>
-<script lang="ts" setup>
-import { watchEffect, ref } from 'vue'
+<script lang="ts" setup name="meetingManage">
+import { ref } from 'vue'
 import { BasicTable, useTable, TableAction } from '@/components/Table'
 import { getMeetingActionColumns, getMeetingColumns, getMeetingFormConfig } from './meeting.data'
-import { Alert } from 'ant-design-vue'
+import { PageWrapper } from '@/components/Page'
 
 import { meetingListApi } from '@/api/service/meetingTable'
-import { StatusEnum } from '@/enums/tableEnum'
 
 import { useModal } from '@/components/Modal'
-import MeetingModal from './MeetingModal.vue'
+import MeetingManageModal from './MeetingManageModal.vue'
 
-const nonFreeCount = ref<number>(0)
-const addLoading = ref(false)
+const createLoading = ref(false)
 
 const [registerModal, { openModal }] = useModal()
-const [registerTable, { getForm, getDataSource, reload, updateTableDataRecord }] = useTable({
+const [registerManageTable, { getForm, getDataSource, reload, updateTableDataRecord }] = useTable({
   title: '会议室信息列表',
   api: meetingListApi,
   columns: getMeetingColumns(),
   useSearchForm: true,
   formConfig: getMeetingFormConfig(),
-  showTableSetting: true,
-  tableSetting: { fullScreen: true },
+  /* showTableSetting: true,
+  tableSetting: { fullScreen: true }, */
   showIndexColumn: false,
   rowKey: 'id',
   actionColumn: getMeetingActionColumns()
-})
-
-watchEffect(async () => {
-  const data = await getDataSource()
-  nonFreeCount.value = data.filter((item) => item.status !== StatusEnum.FREE).length
 })
 
 const handleCreateMeeting = () => {
@@ -102,17 +67,6 @@ function handleSuccess({ isUpdate, values }) {
   } else {
     reload()
   }
-}
-
-function getFormValues() {
-  console.log(getForm().getFieldsValue())
-  const statusValues = getDataSource().map((item) => item.status)
-  console.log(statusValues)
-  console.log(nonFreeCount.value)
-}
-
-function handleEdit(record: Recordable) {
-  console.log('点击了编辑', record)
 }
 
 function handleDelete(record: Recordable) {

@@ -1,9 +1,9 @@
 <template>
   <BasicModal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
-    <BasicForm @register="registerForm" />
+    <BasicForm @register="registerForm" style="height: 40svh" />
   </BasicModal>
 </template>
-<script lang="ts" setup name="MeetingModal">
+<script lang="ts" setup name="MeetingQueryModal">
 import { ref, computed, unref } from 'vue'
 import { BasicModal, useModalInner } from '@/components/Modal'
 import { BasicForm, useForm } from '@/components/Form'
@@ -11,10 +11,11 @@ import { meetingFormSchema } from './meeting.data'
 import { useI18n } from '@/hooks/web/useI18n'
 import { useMessage } from '@/hooks/web/useMessage'
 import { useDesign } from '@/hooks/web/useDesign'
-import { createMeetingApi } from '@/api/service/createMeeting'
+import { reserveMeetingApi } from '@/api/service/reserveMeeting'
 
 const emit = defineEmits(['success', 'register'])
 const isUpdate = ref(true)
+const roomId = ref(0)
 const rowId = ref('')
 
 const { t } = useI18n()
@@ -35,6 +36,7 @@ const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data
   resetFields()
   setModalProps({ confirmLoading: false })
   isUpdate.value = !!data?.isUpdate
+  roomId.value = data?.roomId
 
   if (unref(isUpdate)) {
     rowId.value = data.record.id
@@ -45,15 +47,22 @@ const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data
   updateSchema([])
 })
 
-const getTitle = computed(() => (!unref(isUpdate) ? '新增会议室' : '编辑会议室'))
+const getTitle = computed(() => (!unref(isUpdate) ? '预约会议室' : '撤销会议室'))
 
 async function handleSubmit() {
-  const values = await validate()
+  const data = await validate()
+  let { ['[startTime, endTime]']: timeRange, ...rest } = data
+  let [proxyStartTime, proxyEndTime] = timeRange || []
+  let startTime = proxyStartTime.$d
+  let endTime = proxyEndTime.$d
+  let values = { ...rest, startTime, endTime }
+  values.roomId = roomId.value
+  //console.log(values)
   if (!values) return
   try {
     setModalProps({ confirmLoading: true })
     //api
-    await createMeetingApi(values)
+    await reserveMeetingApi(values)
     closeModal()
     emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } })
   } catch (error) {

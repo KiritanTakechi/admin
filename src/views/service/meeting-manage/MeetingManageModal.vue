@@ -1,9 +1,9 @@
 <template>
   <BasicModal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
-    <BasicForm @register="registerForm" />
+    <BasicForm @register="registerForm" style="height: 40svh" />
   </BasicModal>
 </template>
-<script lang="ts" setup name="MeetingModal">
+<script lang="ts" setup name="MeetingManageModal">
 import { ref, computed, unref } from 'vue'
 import { BasicModal, useModalInner } from '@/components/Modal'
 import { BasicForm, useForm } from '@/components/Form'

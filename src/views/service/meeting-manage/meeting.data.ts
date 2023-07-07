@@ -4,7 +4,6 @@ import { StatusEnum } from '@/enums/tableEnum'
 
 const statusValueMap = new Map([
   [StatusEnum.APPROVED, '同意'],
-  [StatusEnum.REJECTED, '拒绝'],
   [StatusEnum.REVIEWING, '审核中'],
   [StatusEnum.FREE, '空闲']
 ])
@@ -53,7 +52,6 @@ export function getMeetingActionColumns(): BasicColumn {
     dataIndex: 'action',
     fixed: 'right',
     width: 200
-    // slots: { customRender: 'action' }
   }
 }
 
@@ -261,25 +259,5 @@ export function meetingFormSchema(): FormSchema[] {
         ]
       }
     }
-    /* 
-    {
-      field: 'startTime',
-      label: '开始时间',
-      component: 'DatePicker',
-      required: true
-    },
-    {
-      field: 'endTime',
-      label: '结束时间',
-      component: 'DatePicker',
-      required: true
-    },
-    {
-      field: 'meetingTopic',
-      label: '会议主题',
-      component: 'InputTextArea',
-      required: false
-    }
- */
   ]
 }

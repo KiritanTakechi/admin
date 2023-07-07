@@ -4,7 +4,6 @@ import { StatusEnum } from '@/enums/tableEnum'
 
 const statusValueMap = new Map([
   [StatusEnum.APPROVED, '同意'],
-  [StatusEnum.REJECTED, '拒绝'],
   [StatusEnum.REVIEWING, '审核中'],
   [StatusEnum.FREE, '空闲']
 ])
@@ -122,147 +121,7 @@ export function getMeetingFormConfig(): Partial<FormProps> {
 
 export function meetingFormSchema(): FormSchema[] {
   return [
-    {
-      field: 'id',
-      label: 'ID',
-      component: 'Input',
-      componentProps: () => {
-        return {
-          placeholder: '请输入（无输入则自增）',
-          maxlength: 32
-        }
-      },
-      dynamicRules() {
-        return [
-          {
-            required: false,
-            validator: (_, value) => {
-              if (!value) {
-                return Promise.resolve()
-              }
-              if (isNaN(Number(value))) {
-                return Promise.reject('请输入数字！')
-              }
-              if (value.length > 16) {
-                return Promise.reject('输入长度不能超过16！')
-              }
-              return Promise.resolve()
-            },
-            trigger: 'change'
-          }
-        ]
-      }
-    },
-    {
-      field: 'buildName',
-      label: '楼名',
-      component: 'Input',
-      componentProps: () => {
-        return {
-          maxlength: 32
-        }
-      },
-      dynamicRules() {
-        return [
-          {
-            required: true,
-            validator: (_, value) => {
-              if (value.length > 16) {
-                return Promise.reject('输入长度不能超过16！')
-              }
-              return Promise.resolve()
-            },
-            trigger: 'change'
-          }
-        ]
-      }
-    },
-    {
-      field: 'floor',
-      label: '楼层',
-      component: 'Input',
-      required: true,
-      componentProps: () => {
-        return {
-          maxlength: 32
-        }
-      },
-      dynamicRules() {
-        return [
-          {
-            required: true,
-            validator: (_, value) => {
-              if (isNaN(Number(value))) {
-                return Promise.reject('请输入数字！')
-              }
-              if (value.length > 16) {
-                return Promise.reject('输入长度不能超过16！')
-              }
-              return Promise.resolve()
-            },
-            trigger: 'change'
-          }
-        ]
-      }
-    },
-    {
-      field: 'area',
-      label: '面积',
-      component: 'Input',
-      required: true,
-      componentProps: () => {
-        return {
-          maxlength: 32
-        }
-      },
-      dynamicRules() {
-        return [
-          {
-            required: true,
-            validator: (_, value) => {
-              if (isNaN(Number(value))) {
-                return Promise.reject('请输入数字！')
-              }
-              if (value.length > 16) {
-                return Promise.reject('输入长度不能超过16！')
-              }
-              return Promise.resolve()
-            },
-            trigger: 'change'
-          }
-        ]
-      }
-    },
-    {
-      field: 'capacity',
-      label: '座位数',
-      component: 'Input',
-      required: true,
-      componentProps: () => {
-        return {
-          maxlength: 32
-        }
-      },
-      dynamicRules() {
-        return [
-          {
-            required: true,
-            validator: (_, value) => {
-              if (isNaN(Number(value))) {
-                return Promise.reject('请输入数字！')
-              }
-              if (value.length > 16) {
-                return Promise.reject('输入长度不能超过16！')
-              }
-              return Promise.resolve()
-            },
-            trigger: 'change'
-          }
-        ]
-      }
-    }
-    /* 
-    {
+    /* {
       field: 'startTime',
       label: '开始时间',
       component: 'DatePicker',
@@ -273,6 +132,17 @@ export function meetingFormSchema(): FormSchema[] {
       label: '结束时间',
       component: 'DatePicker',
       required: true
+    }, */
+    {
+      field: '[startTime, endTime]',
+      label: '会议时间',
+      component: 'RangePicker',
+      required: true,
+      componentProps: {
+        format: 'YYYY-MM-DD HH:mm:ss',
+        placeholder: ['开始时间', '结束时间'],
+        showTime: { format: 'HH:mm:ss' }
+      }
     },
     {
       field: 'meetingTopic',
@@ -280,6 +150,5 @@ export function meetingFormSchema(): FormSchema[] {
       component: 'InputTextArea',
       required: false
     }
- */
   ]
 }

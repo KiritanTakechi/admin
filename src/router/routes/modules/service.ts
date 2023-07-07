@@ -7,32 +7,27 @@ const service: AppRouteModule = {
   path: '/service',
   name: 'Service',
   component: LAYOUT,
-  redirect: '/service/meeting-query',
+  redirect: '/service/meetingQuery',
   meta: {
-    orderNo: 80000,
+    orderNo: 8000,
     icon: 'solar:slider-vertical-minimalistic-linear',
-    //title: t('routes.demo.setup.page'),
     title: '服务'
   },
   children: [
     {
-      path: 'meeting-query',
-      name: 'meetingQuery',
+      path: 'meetingQuery',
+      name: 'MeetingQuery',
       component: () => import('@/views/service/meeting-query/index.vue'),
       meta: {
-        //title: t('routes.demo.setup.page'),
-        title: '会议查询'
-        //hideMenu: true
+        title: '会议预约'
       }
     },
     {
-      path: 'meeting-manage',
-      name: 'meetingManage',
+      path: 'meetingManage',
+      name: 'MeetingManage',
       component: () => import('@/views/service/meeting-manage/index.vue'),
       meta: {
-        //title: t('routes.demo.setup.page'),
         title: '会议管理'
-        //hideMenu: true
       }
     }
   ]
