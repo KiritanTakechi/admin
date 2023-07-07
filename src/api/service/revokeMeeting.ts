@@ -2,7 +2,7 @@ import { defHttp } from '@/utils/http/axios'
 import { RevokeMeetingParams, RevokeMeetingListGetResultModel } from './model/revokeMeetingModel'
 
 enum Api {
-  REVOKE_MEETING = '/meetingroomMange/revoke'
+  REVOKE_MEETING = '/mroomReserve/cancelReserve'
 }
 
 /**
