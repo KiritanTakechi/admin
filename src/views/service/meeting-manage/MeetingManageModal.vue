@@ -68,7 +68,7 @@ async function handleSubmit() {
     if (unref(isUpdate)) {
       await updateMeetingApi({ ...values, oldId: rowId.value })
     } else if (unref(isDelete)) {
-      await deleteMeetingApi({id: rowId.value })
+      await deleteMeetingApi({ id: rowId.value })
     } else {
       await createMeetingApi(values)
     }
