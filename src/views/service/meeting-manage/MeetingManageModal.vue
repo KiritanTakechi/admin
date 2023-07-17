@@ -56,6 +56,7 @@ const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data
   } else if (unref(isDelete)) {
     content.value = '确定删除吗？'
   }
+  setModalProps({ confirmLoading: false })
 })
 
 const getTitle = computed(() => (unref(isUpdate) ? '编辑会议室' : unref(isDelete) ? '删除会议室' : '新增会议室'))
