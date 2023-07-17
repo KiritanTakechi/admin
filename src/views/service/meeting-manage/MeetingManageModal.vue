@@ -47,6 +47,7 @@ const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data
   rowId.value = data.record.id
   if (!unref(isUpdate) && !unref(isDelete)) {
     resetFields()
+    updateSchema([])
   } else if (unref(isUpdate)) {
     setFieldsValue({
       ...data.record
@@ -54,7 +55,6 @@ const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data
   } else if (unref(isDelete)) {
     content.value = '确定删除吗？'
   }
-  updateSchema([])
 })
 
 const getTitle = computed(() => (unref(isUpdate) ? '编辑会议室' : unref(isDelete) ? '删除会议室' : '新增会议室'))
