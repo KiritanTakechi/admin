@@ -65,26 +65,27 @@ const getTitle = computed(() => (unref(isUpdate) ? '编辑会议室' : unref(isD
 async function handleSubmit() {
   const values = await validate()
   if (!values && !unref(isDelete)) return
-  try {
-    setModalProps({ confirmLoading: true })
-    //api
-    if (unref(isUpdate)) {
-      await updateMeetingApi({ ...values, oldId: rowId.value })
-    } else if (unref(isDelete)) {
-      await deleteMeetingApi({ ...values, id: rowId.value })
-    } else {
-      await createMeetingApi(values)
+  else
+    try {
+      setModalProps({ confirmLoading: true })
+      //api
+      if (unref(isUpdate)) {
+        await updateMeetingApi({ ...values, oldId: rowId.value })
+      } else if (unref(isDelete)) {
+        await deleteMeetingApi({ ...values, id: rowId.value })
+      } else {
+        await createMeetingApi(values)
+      }
+      closeModal()
+      emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } })
+    } catch (error) {
+      createErrorModal({
+        title: t('sys.api.errorTip'),
+        content: (error as unknown as Error).message || t('sys.api.networkExceptionMsg'),
+        getContainer: () => document.body.querySelector(`.${prefixCls}`) || document.body
+      })
+    } finally {
+      setModalProps({ confirmLoading: false })
     }
-    closeModal()
-    emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } })
-  } catch (error) {
-    createErrorModal({
-      title: t('sys.api.errorTip'),
-      content: (error as unknown as Error).message || t('sys.api.networkExceptionMsg'),
-      getContainer: () => document.body.querySelector(`.${prefixCls}`) || document.body
-    })
-  } finally {
-    setModalProps({ confirmLoading: false })
-  }
 }
 </script>
