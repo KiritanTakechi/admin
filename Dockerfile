@@ -5,8 +5,8 @@ WORKDIR /app
 
 # 确保git已经安装
 RUN apt-get update && \
-    apt-get install -y git locales locales-all fonts-noto-cjk && \
-    locale-gen zh_CN.UTF-8 && \
+    apt-get install -y git locales fonts-noto-cjk && \
+    localedef -i zh_CN -c -f UTF-8 -A /usr/share/locale/locale.alias zh_CN.UTF-8 && \
     npm install -g pnpm && \
     git clone https://github.com/KiritanTakechi/admin.git . && \
     pnpm i && \
