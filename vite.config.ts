@@ -60,20 +60,20 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       drop: VITE_DROP_CONSOLE ? ['console', 'debugger'] : []
     },
     build: {
-      target: 'es2015',
-      cssTarget: 'chrome80',
+      target: 'es2020',
+      cssTarget: 'chrome100',
       outDir: OUTPUT_DIR,
-      // minify: 'terser',
+      minify: 'terser',
       /**
        * 当 minify=“minify:'terser'” 解开注释
        * Uncomment when minify="minify:'terser'"
        */
-      // terserOptions: {
-      //   compress: {
-      //     keep_infinity: true,
-      //     drop_console: VITE_DROP_CONSOLE,
-      //   },
-      // },
+      terserOptions: {
+        compress: {
+          keep_infinity: true,
+          drop_console: VITE_DROP_CONSOLE
+        }
+      },
       // Turning off brotliSize display can slightly reduce packaging time
       reportCompressedSize: false,
       chunkSizeWarningLimit: 2000
