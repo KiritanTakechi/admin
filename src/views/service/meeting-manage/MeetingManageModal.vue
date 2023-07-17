@@ -55,8 +55,6 @@ const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data
     updateSchema([])
   } else if (unref(isDelete)) {
     content.value = '确定删除吗？'
-    resetFields()
-    updateSchema([])
   }
 })
 
@@ -64,8 +62,10 @@ const getTitle = computed(() => (unref(isUpdate) ? '编辑会议室' : unref(isD
 
 async function handleSubmit() {
   const values = await validate()
-  if (!values && !unref(isDelete)) return
-  else
+  if (!values && !unref(isDelete)) {
+    console.log(isDelete.value)
+    return
+  } else
     try {
       setModalProps({ confirmLoading: true })
       //api
