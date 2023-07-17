@@ -52,8 +52,11 @@ const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data
     setFieldsValue({
       ...data.record
     })
+    updateSchema([])
   } else if (unref(isDelete)) {
     content.value = '确定删除吗？'
+    resetFields()
+    updateSchema([])
   }
 })
 
@@ -68,7 +71,7 @@ async function handleSubmit() {
     if (unref(isUpdate)) {
       await updateMeetingApi({ ...values, oldId: rowId.value })
     } else if (unref(isDelete)) {
-      await deleteMeetingApi({ id: rowId.value })
+      await deleteMeetingApi({ ...values, id: rowId.value })
     } else {
       await createMeetingApi(values)
     }
